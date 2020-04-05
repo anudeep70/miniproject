@@ -19,8 +19,6 @@ dist_transform = cv2.distanceTransform(closing, cv2.DIST_L2, 0)
 ret, fg = cv2.threshold(dist_transform, 0.02
                         * dist_transform.max(), 255, 0)
 img=fg
-for i in fg:
-    print(sum(i))
 def click(event,x,y,flags,param):
     if event==cv2.EVENT_LBUTTONDOWN:
         print(x,",",y)
@@ -46,14 +44,15 @@ for i in range(0,xi):
         for tempi in range(0,pix):
             for tempj in range(0,pix):
                 ans+=img[(i*pix)+tempi][(j*pix)+tempj]
-        img = cv2.putText(img,"1" if ans==58905 else "0",(j*pix+pix//2+1,i*pix+pix//2+1),cv2.FONT_HERSHEY_SIMPLEX,1, (225,225,0),2, cv2.LINE_AA)
+        img = cv2.putText(img,"1" if ans==58905 else "0",(j*pix+pix//2-7,i*pix+pix//2+7),cv2.FONT_HERSHEY_SIMPLEX,1, (225,225,0),2, cv2.LINE_AA)
         #print(i,j)
-        matrix[i][j]=ans
+        matrix[i][j]=(ans==58905)
     #print()
-#print(matrix)
+print(matrix[0])
 cv2.destroyAllWindows()
 cv2.imshow("image",img)
 cv2.setMouseCallback("image",click)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 #print(img)
+
